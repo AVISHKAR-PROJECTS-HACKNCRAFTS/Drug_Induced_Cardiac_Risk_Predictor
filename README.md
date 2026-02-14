@@ -1,115 +1,104 @@
-🫀 Drug-Induced Cardiac Risk Prediction System (Streamlit App)
+# 🫀 AI Cardiac Risk Prediction System
 
-This project presents an AI-assisted Cardiac Risk Prediction System designed to support early identification of potential heart-related complications, especially those influenced by medication usage. The system combines ECG report image analysis, patient clinical details, and medication information to estimate future cardiac risk in an explainable and ethical manner.
+An advanced **AI-powered Cardiac Risk Prediction System** leveraging **Deep Learning (BiLSTM)** and Clinical Data Analysis to provide real-time cardiac health assessments.
 
-The application is built using Streamlit and focuses on decision support and risk awareness, not medical diagnosis.
+This application combines **ECG Signal Analysis** with patient-specific clinical factors (medication, symptoms, history) to accurately predict cardiac risk levels and identify potential conditions.
 
-🚀 Key Features
+---
 
-📤 Upload ECG report images (PNG / JPG)
+## 🚀 Key Features
 
-✅ User confirmation to ensure responsible ECG analysis
+- 📤 **Intelligent ECG Analysis** — Upload standard ECG images (PNG/JPG) for instant AI processing.
+- 🧠 **Deep Learning Core** — Powered by a **Bidirectional LSTM (Long Short-Term Memory)** network with **Attention Mechanism**.
+- 📊 **High Accuracy** — The model achieves **93.60% Test Accuracy** on the MIT-BIH Arrhythmia Database.
+- 💊 **Drug-Induced Risk Engine** — Calculates risk scores based on dosage, drug interactions, and potential side effects.
+- 🩺 **Clinical Decision Support** — Predicts specific conditions like **Arrhythmia**, **Tachycardia**, **Bradycardia**, and **Coronary Artery Disease (CAD)**.
+- 📈 **Modern Medical Dashboard** — Features real-time risk gauges, confidence scores, and a premium dark-mode UI.
 
-🫀 ECG rhythm classification (Normal / Irregular) with confidence score
+---
 
-📊 Cardiac risk estimation displayed using a speedometer gauge
+## 🛠️ Installation & Setup
 
-🩺 Prediction of possible heart-related conditions (e.g., Arrhythmia, CAD)
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python Package Installer)
 
-💊 Incorporates drug usage, dosage, and patient symptoms
-
-⚖️ Explainable, frontend-focused, and ethically designed system
-
-🧠 How the System Works
-
-User uploads an ECG report image
-
-User confirms that the image is a valid ECG report
-
-The system analyzes ECG waveform smoothness to classify rhythm
-
-Clinical inputs (heart rate, symptoms, medication details, age, history) are collected
-
-A cardiac risk score is calculated
-
-Results are visualized and explained in a user-friendly format
-
-⚠️ This system provides indicative results for awareness and does not replace professional medical diagnosis.
-
-🖥️ Running the Application Locally
-Prerequisites
-
-Python 3.8 or higher
-
-pip installed
-
-Installation & Run
+### Step 1: Install Dependencies
+Open your terminal or command prompt in the project folder and run:
+```bash
 pip install -r requirements.txt
+```
+
+### Step 2: Run the Application
+Start the local server by running:
+```bash
 streamlit run app.py
+```
 
+### Step 3: Access the Dashboard
+The application will automatically open in your default web browser at:
+> **http://localhost:8501**
 
-The application will open in your browser.
+---
 
-📊 Dataset Information
+## 📖 User Guide
 
-Due to GitHub size limitations, the dataset is not included in this repository.
+1.  **Upload ECG**: Drag & Drop your ECG report image into the upload section.
+2.  **Verify**: Check the "This is a valid ECG report" box to confirm the image is clear.
+3.  **AI Analysis**: The system will extract the waveform and classify it as **Normal** or **Abnormal** with a confidence score.
+4.  **Patient Data**: Fill in the clinical form (Age, Heart Rate, Symptoms, Medication).
+5.  **Get Results**: Click **"Analyze Cardiac Risk"** to generate the comprehensive risk report.
 
-Dataset Name
+---
 
-MIT-BIH Arrhythmia Database
+## 🧠 Model Architecture
 
-Official Source
+The system uses a custom **PyTorch Deep Learning Model** designed specifically for time-series ECG data:
 
-🔗 https://physionet.org/content/mitdb/1.0.0/
+- **Architecture:** Bidirectional LSTM with Attention
+- **Why BiLSTM?** It processes the ECG signal in both forward and backward directions, capturing temporal dependencies that standard models miss.
+- **Attention Mechanism:** Automatically focuses on the most critical parts of the heartbeat (like the QRS complex) for higher precision.
+- **Training Data:** Trained on **67,662 balanced heartbeat segments** from the MIT-BIH database.
 
-Dataset Purpose in This Project
+**Performance Metrics:**
+| Metric | Score |
+| :--- | :--- |
+| **Accuracy** | **93.60%** |
+| **F1 Score** | **93.46%** |
+| **AUC-ROC** | **0.9571** |
 
-The MIT-BIH Arrhythmia Database is used as a reference dataset to justify ECG rhythm patterns and cardiac abnormalities. The current application does not directly display or preprocess dataset contents but aligns its ECG analysis logic with standard arrhythmia characteristics described in the dataset.
+---
 
-How to Add the Dataset (Optional)
+## � Dataset Information
 
-Download the dataset from the official source
+### MIT-BIH Arrhythmia Database
+The model was trained using the industry-standard **MIT-BIH Arrhythmia Database** from PhysioNet.
 
-Extract the files
+- **Source:** Beth Israel Hospital (Boston) & MIT
+- **Content:** 48 half-hour excerpts of two-channel ambulatory ECG recordings.
+- **Subjects:** 47 subjects studied by the BIH Arrhythmia Laboratory.
+- **Sampling:** 360 Hz per channel with 11-bit resolution.
+- ** preprocessing:** Signals were segmented, denoised, and balanced to ensure the model detects abnormal beats as accurately as normal ones.
 
-Place the extracted folder inside the project directory
+---
 
-mit-bih-arrhythmia-database-1.0.0/
+## 📁 Project Structure
 
+```
+CARDIAC_RISK_APP/
+├── app.py                       # Main Application (Streamlit + Model Inference)
+├── requirements.txt             # List of required Python libraries
+├── README.md                    # Project Documentation
+└── saved_model/                 # Trained AI Model Files
+    ├── cardiac_lstm_model.pth   # PyTorch Model Weights (The "Brain")
+    ├── scaler.pkl               # Data Preprocessing Scaler
+    ├── label_classes.pkl        # Class Definitions (Normal/Abnormal)
+    ├── model_architecture.json  # Model Configuration
+    └── training_metrics.json    # Final Training Performance Logs
+```
 
-The application will silently detect the dataset folder for internal calibration without exposing dataset data in the UI.
+---
 
-📌 Project Scope
+## ⚠️ Disclaimer
 
-Early cardiac risk awareness
-
-Drug-induced cardiac complication support
-
-Explainable AI-based decision support
-
-Educational and research-oriented healthcare application
-
-🔮 Future Enhancements
-
-Integration of CNN/LSTM deep learning models for ECG classification
-
-Automatic ECG vs non-ECG image validation
-
-Real-time ECG signal analysis from wearable devices
-
-Cloud-based deployment and patient history tracking
-
-Multi-class cardiac disease prediction
-
-📚 References
-
-Moody, G. B., & Mark, R. G., The MIT-BIH Arrhythmia Database, IEEE
-
-Goldberger, A. L., et al., PhysioNet: Components of a New Research Resource
-
-Rajpurkar, P., et al., Cardiologist-Level Arrhythmia Detection Using Deep Learning
-
-🧾 Disclaimer
-
-This application is intended only for educational and research purposes.
-It is not a medical diagnostic tool.
+This tool is designed for **assistive and educational purposes only**. It is **not** a substitute for professional medical diagnosis. All predictions should be verified by a qualified cardiologist or healthcare professional.
